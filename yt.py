@@ -6,6 +6,7 @@ import yt_dlp #要裝yt_dlp 跟 ffmpeg
 import os
 import csv
 
+<<<<<<< HEAD
 
 import requests
 from bs4 import BeautifulSoup
@@ -98,6 +99,8 @@ def find_hit_song(videos_data):
 
 
 
+=======
+>>>>>>> 71a7c2608b5cf18c721d69ce53cb2f0f733469c6
 def kworb_to_youtube(kworb_url):
 
     # 使用正則表達式提取 video_id
@@ -232,6 +235,7 @@ def save_to_csv(file_path, file_name, video_id, channel_name, filename="output.c
     print("資料已成功保存到 output.csv")
 
 
+<<<<<<< HEAD
 
 videos_data = find_artist_all_songs(url)
 # for video in videos_data:
@@ -243,6 +247,11 @@ hit_song = find_hit_song(first_year)
 # 你的 kworb 網址
 kworb_url = 'https://kworb.net/youtube/video/0VR3dfZf9Yg.html'
 channel_name, video_id = kworb_to_youtube(hit_song[0]['link'])
+=======
+# 你的 kworb 網址
+kworb_url = ''
+channel_name, video_id = kworb_to_youtube(kworb_url)
+>>>>>>> 71a7c2608b5cf18c721d69ce53cb2f0f733469c6
 video_url = f'https://www.youtube.com/watch?v={video_id}'
 file_name,file_path = download_mp3(video_url)
 save_to_csv(file_name, video_id, channel_name, file_path)
