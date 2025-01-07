@@ -6,6 +6,7 @@ pip install yt-dl
 ---
 ### 使用前先下載 ffmpeg:
 ### https://www.ffmpeg.org/download.html
+#### macOS 可以看看這篇 https://simular.co/blog/post/mac-ffmpeg-convert-videos
 
 1. 下載完解壓縮並且複製底下資料夾bin的位置
   例:C:\ffmpeg\bin
