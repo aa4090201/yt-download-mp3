@@ -2,18 +2,16 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import json     
-import yt_dlp #要裝yt_dlp 跟 ffmpeg
+import yt_dlp 
+#pip install yt_dlp
+# ffmpeg
+# https://www.ffmpeg.org/download.html
 import os
 import csv
-
-<<<<<<< HEAD
-
-import requests
-from bs4 import BeautifulSoup
 from datetime import datetime
 
 
-url = "https://kworb.net/youtube/artist/badbunny.html"
+
 def find_artist_all_songs(url):
     headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
@@ -63,7 +61,7 @@ def find_artist_all_songs(url):
                 # 將字典加入列表
                 videos_data.append(video_data)
     return videos_data
-# 顯示結果
+
 
 
 def find_first_year_song(videos_data):
@@ -99,8 +97,6 @@ def find_hit_song(videos_data):
 
 
 
-=======
->>>>>>> 71a7c2608b5cf18c721d69ce53cb2f0f733469c6
 def kworb_to_youtube(kworb_url):
 
     # 使用正則表達式提取 video_id
@@ -235,23 +231,39 @@ def save_to_csv(file_path, file_name, video_id, channel_name, filename="output.c
     print("資料已成功保存到 output.csv")
 
 
-<<<<<<< HEAD
 
+
+# 給定歌手的kworb的網址 https://kworb.net/youtube/artist/歌手頻道名.html
+url = "https://kworb.net/youtube/artist/badbunny.html"
+# 找出該歌手的所有歌曲數據 回傳包含連結 歌曲名稱 總觀看數 昨日觀看數 發布時間(年/月) 
+# video_data = {
+#                     'link': absolute_link,
+#                     'video_name': video_name,
+#                     'total_views': total_views,
+#                     'yesterday_views': yesterday_views,
+#                     'release_date': release_date
+#                 }
+# 回傳的是List of dictionary
 videos_data = find_artist_all_songs(url)
-# for video in videos_data:
-#     print(video['link'])
+
+# 回傳一個從發布時間最小到12個月後的的歌曲的List
 first_year = find_first_year_song(videos_data)
+
+# 從list找出成名曲 (目前是第一年中現在總觀看最高的歌曲)
 hit_song = find_hit_song(first_year) 
 
 
-# 你的 kworb 網址
-kworb_url = 'https://kworb.net/youtube/video/0VR3dfZf9Yg.html'
+
+# 給kowrb有嵌入式yt影片歌曲的網址 https://kworb.net/youtube/video/影片id.html
+# 回傳頻道id及影片id
 channel_name, video_id = kworb_to_youtube(hit_song[0]['link'])
-=======
-# 你的 kworb 網址
-kworb_url = ''
-channel_name, video_id = kworb_to_youtube(kworb_url)
->>>>>>> 71a7c2608b5cf18c721d69ce53cb2f0f733469c6
+
+# 將頻道id加進youtube網址
 video_url = f'https://www.youtube.com/watch?v={video_id}'
+
+# 從youtube網址 用yt-dl下載youtube影片並且使用ffmpeg轉成mp3格式放進./music資料夾 
+# 回傳檔案名稱及音樂檔案位置
 file_name,file_path = download_mp3(video_url)
-save_to_csv(file_name, video_id, channel_name, file_path)
+
+# 給定檔案路徑 檔案名稱 影片id 頻道名稱(不含@)將上述轉成csv檔案
+save_to_csv(file_path, file_name, video_id, channel_name)
