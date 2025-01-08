@@ -28,7 +28,7 @@ def kworb_to_youtube(kworb_url):
     soup = BeautifulSoup(response.content, 'html.parser')
     # 找到所有的 <script> 標籤
     scripts = soup.find_all('script')
-
+    # print(soup)
     # 遍歷 <script> 標籤並查找包含 'ytcfg.set' 的腳本
     for script in scripts:
         # 檢查 script.string 是否為 None
@@ -75,10 +75,24 @@ def kworb_to_youtube(kworb_url):
                     print(f'頻道名稱: {channel_name}')
                 else:
                     print('未找到頻道名稱')
-                    channel_name = '未找到頻道名稱'
+                    embed_url = f'https://kworb.net/youtube/video/{video_id}.html'
+                    response = requests.get(embed_url, headers=headers)
+                    soup = BeautifulSoup(response.content, 'html.parser')
+                    artistsong_name = soup.find('span', style='display: inline-block; vertical-align: middle; max-width: 450px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;')
+    
+                    if artistsong_name:
+                        name = "未找到頻道名稱，影片名稱："+artistsong_name.get_text()
+                        return name, video_id
+
+                    else:
+                        print("未找到目標標籤")
+                        return '未找到頻道名稱', video_id
 
 
 
 
     return channel_name, video_id
+
+print(kworb_to_youtube("https://kworb.net/youtube/video/bM7SZ5SBzyY.html"))
+
 
