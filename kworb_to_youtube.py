@@ -93,6 +93,6 @@ def kworb_to_youtube(kworb_url):
 
     return channel_name, video_id
 
-print(kworb_to_youtube("https://kworb.net/youtube/video/bM7SZ5SBzyY.html"))
+
 
 
