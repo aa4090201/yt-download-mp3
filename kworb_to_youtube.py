@@ -75,7 +75,10 @@ def kworb_to_youtube(kworb_url):
                     print(f'頻道名稱: {channel_name}')
                 else:
                     print('未找到頻道名稱')
+                    channel_name = '未找到頻道名稱'
+
 
 
 
     return channel_name, video_id
+
